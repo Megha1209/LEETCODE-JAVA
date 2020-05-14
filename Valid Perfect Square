@@ -1,0 +1,20 @@
+class Solution {
+      public boolean isPerfectSquare(int num) {
+    if(num == 1)
+        return true;
+       if(num == 0 || num == Integer.MAX_VALUE) return false;
+       return binarySearch(1, num-1, num);
+    }
+    
+    public boolean binarySearch(int low, int high, int num) {
+        if(low > high) return false;
+        
+        int mid = high - (high-low)/2;
+        if((long) mid*mid > Integer.MAX_VALUE) return binarySearch(low, mid-1, num);
+        int square = mid*mid;
+        
+        if(square == num) return true;
+        else if(square < num) return binarySearch(mid+1, high, num);
+        else return binarySearch(low, mid-1, num);
+    }
+}
