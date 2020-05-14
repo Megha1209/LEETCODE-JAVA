@@ -1,0 +1,26 @@
+class Solution {
+    TreeNode root1;
+    TreeNode root2;
+    int depth1 = -1;
+    int depth2 = -1;
+    public boolean isCousins(TreeNode root, int x, int y) {
+        isCousinsHelper(root, null, x, y, 0);
+        return root1 != root2 && depth1 == depth2;
+    }
+    
+    public void isCousinsHelper(TreeNode root, TreeNode parent, int x, int y, int depth) {
+        if (root == null) {
+            return;
+        }
+        if (root.val == x) {
+            root1 = parent;
+            depth1 = depth;
+        }
+        if (root.val == y) {
+            root2 = parent;
+            depth2 = depth;
+        }
+        isCousinsHelper(root.left, root, x, y, depth + 1);
+        isCousinsHelper(root.right, root, x, y, depth + 1);
+    }
+}
