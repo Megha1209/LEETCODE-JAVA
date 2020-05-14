@@ -1,0 +1,31 @@
+class Solution {
+    int[][] dir = {{1,0},{0,1},{0,-1},{-1,0}};
+    public int[][] floodFill(int[][] image, int sr, int sc, int c) {
+        boolean[][] dp = new boolean[image.length][image[0].length];
+        int t = image[sr][sc];
+        dp[sr][sc] = true;
+        floodFill(image,sr,sc,dp,t);
+        for(int i=0;i<image.length;i++)
+        {
+            for(int j=0;j<image[0].length;j++)
+            {
+                if(dp[i][j])
+                    image[i][j] = c;
+            }
+        }
+        return image;
+    }
+     public void floodFill(int[][] image, int sr, int sc,boolean[][] dp,int t) {
+        
+        for(int i=0;i<=3;i++)
+        {
+            int x = sr+dir[i][0];
+            int y = sc+dir[i][1];
+            if(x >= 0 && x<image.length && y>=0 && y<image[0].length && !dp[x][y] && image[x][y] == t )
+            {
+                dp[x][y] = true;
+                floodFill(image,x,y,dp,t);
+            }
+        }
+    }
+}
