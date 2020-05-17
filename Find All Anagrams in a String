@@ -1,0 +1,48 @@
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> a = new ArrayList<Integer>();
+        if(s.length() < p.length() )
+            return a;
+        HashMap<Character,Integer> map = new HashMap<>();
+        HashMap<Character,Integer> f= new HashMap<>();
+        for(int i=0;i<p.length();i++)
+            f.put(p.charAt(i),f.getOrDefault(p.charAt(i),0)+1);
+        int si = 0;
+        int count =0;
+        //int ans =0;
+        for(int i=0;i<p.length();i++)
+        { char ch = s.charAt(i);
+         map.put(ch,map.getOrDefault(ch,0)+1);
+         if(f.containsKey(ch) && (map.get(ch) <= f.get(ch)) )
+                          count++;
+      
+                          }
+        
+          if(count == p.length())
+          { a.add(si);
+            }
+         map.put(s.charAt(si),map.get(s.charAt(si))-1);
+         int b = map.get(s.charAt(si));
+         if(f.containsKey(s.charAt(si) ) && (map.get(s.charAt(si)) < f.get(s.charAt(si)) ))
+                     count--;
+        for(int i =1;i<=s.length()-p.length();i++)
+        {
+            char ch = s.charAt(p.length()+i-1);
+             map.put(ch,map.getOrDefault(ch,0)+1);
+         if(f.containsKey(ch) && (map.get(ch) <= f.get(ch)) )
+                          count++;
+      
+                          
+          if(count == p.length())
+          { a.add(i);
+            }
+                 map.put(s.charAt(i),map.get(s.charAt(i))-1);
+         b = map.get(s.charAt(i));
+         if(f.containsKey(s.charAt(i)) && (map.get(s.charAt(i)) < f.get(s.charAt(i)) ))
+                     count--;
+            }
+                          return a;
+    }
+                   
+        
+    }
