@@ -1,0 +1,44 @@
+class Node
+{
+    int val;
+    int count;
+    public Node(int val)
+    {
+        this.val = val;
+    }    
+}
+
+class StockSpanner {
+    Stack<Node> stack;
+    public StockSpanner() {
+        stack = new Stack<Node>();
+    }
+    
+    public int next(int price) {
+        int res = 1;
+        
+        while (!stack.isEmpty())
+        {
+            if (stack.peek().val <= price)
+            {
+                Node node = stack.pop();
+                res += node.count;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        Node node = new Node(price);
+        node.count = res;
+        stack.push(node);
+        return res;
+    }
+}
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
