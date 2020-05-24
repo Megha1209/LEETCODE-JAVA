@@ -1,0 +1,24 @@
+class Solution {
+    int idx = 0;
+    public TreeNode bstFromPreorder(int[] preorder) {
+        
+    int max = (int)1e8;
+    int min = (int)-1e8;
+    
+       return bst(preorder,min,preorder[idx],max); 
+        
+    }
+    public TreeNode bst(int[] pre,int min,int data,int max)
+    {
+        if( data < min ||data > max || idx == pre.length)
+            return null;
+        TreeNode node = new TreeNode(data,null,null);
+        idx++;
+        if(idx< pre.length)
+            node.left = bst(pre,min,pre[idx],data);
+        if(idx< pre.length)
+            node.right= bst(pre,data,pre[idx],max);
+        return node;
+        
+    }
+    }
