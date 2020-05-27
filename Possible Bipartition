@@ -1,0 +1,78 @@
+class Solution {
+    public class pair{
+        int vtx;
+        int c;
+        pair()
+        {
+            c=-1;
+        }
+    }
+    public boolean isBipartite( ArrayList<Integer>[] graph) {
+        int[] vis = new int[graph.length];
+        for(int i=0;i<vis.length;i++)
+            vis[i] = -1;
+        boolean res = true;
+      for(int i=0;i<graph.length;i++)
+      {
+         if(vis[i] == -1)
+            res = res && Bipar(graph,i,vis);
+          
+      }
+        
+        for(int val : vis){
+            System.out.print(val + " ");
+        }
+        return res;
+    }
+    public boolean Bipar( ArrayList<Integer>[] graph,int src, int[] vis)
+    {
+        LinkedList<pair> l = new LinkedList<>();
+        pair sp = new pair();
+        sp.vtx = src;
+        sp.c = 0;
+        l.addLast(sp);
+        while(l.size() != 0)
+        {
+            pair rp = l.removeFirst();
+            int u = rp.vtx;
+            int w = rp.c;
+            if(vis[u] != -1)
+            {
+                if(vis[u] != w)
+                    return false;
+                else
+                    continue;
+            }
+            vis[u] = w;
+            for(int i=0;i<graph[u].size();i++)
+            { if(vis[graph[u].get(i)] == -1)
+            {
+                pair s = new pair();
+                s.vtx = graph[u].get(i);
+                s.c = (w+1)%2;
+                l.addLast(s);
+            }   
+            }
+        }
+        return true;
+        
+    }
+    
+    public boolean possibleBipartition(int n, int[][] dislikes) {
+        
+     
+    ArrayList<Integer>[] vert = new ArrayList[n];    
+    for (int i =0; i< n;i+=1)
+        vert[i] = new ArrayList<Integer>();
+        
+    for (int i =0; i< dislikes.length;i+=1)
+    {
+       int u = dislikes[i][0] -1;
+       int v = dislikes[i][1] -1;
+       vert[u].add (v);
+         vert[v].add (u);
+    }
+        
+return isBipartite(vert);
+}
+}
